@@ -1,6 +1,6 @@
 # iOS-Guidelines
 Guidelines for developing iOS based apps 
 
-[OBJECTIVE C CODING STANDARDS](coding_standards.md)
+* [Objective C Coding Standards](coding_standards.md)
 
 
