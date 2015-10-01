@@ -380,60 +380,73 @@ Not Preferred :-
 - (BOOL)glyphInfoAccepted;
 ```
 
-Use “get” only for methods that return objects and values indirectly. You should use this form for methods only when multiple items need to be returned.
+* Use “get” only for methods that return objects and values indirectly. You should use this form for methods only when multiple items need to be returned.
 
 Example :-
+
+``` objective-c
 - (void)getLineDash:(float *)pattern count:(int *)count phase:(float *)phase;
+```
 
+## 1.10. Delegate Methods
 
-Delegate Methods
-
-Start the name by identifying the class of the object that’s sending the message:
+* Start the name by identifying the class of the object that’s sending the message:
 
 Example :-
+
+``` objective-c
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(int)row;
 - (BOOL)application:(NSApplication *)sender openFile:(NSString *)filename;
+```
 
-Use “did” or “will” for methods that are invoked to notify the delegate that something has happened or is about to happen.
+* Use “did” or “will” for methods that are invoked to notify the delegate that something has happened or is about to happen.
 
 Example :-
+
+``` objective-c
 - (void)browserDidScroll:(NSBrowser *)sender;
+```
 
 
-Method Arguments
+## 1.11. Method Arguments
 
-As with methods, arguments start with a lowercase letter and the first letter of successive words are capitalized (for example, removeObject:(id)anObject).
+* As with methods, arguments start with a lowercase letter and the first letter of successive words are capitalized (for example, removeObject:(id)anObject).
 
-Don’t use “pointer” or “ptr” in the name. Let the argument’s type rather than its name declare whether it’s a pointer.
+* Don’t use “pointer” or “ptr” in the name. Let the argument’s type rather than its name declare whether it’s a pointer.
 
-Avoid one- and two-letter names for arguments.
-Avoid abbreviations that save only a few letters.
+* Avoid one- and two-letter names for arguments.
+* Avoid abbreviations that save only a few letters.
 
 
-Variables
+## 1.12. Variables
 
-Variables should be named as descriptively as possible. Single letter variable names should be avoided except in for() loops.
+* Variables should be named as descriptively as possible. Single letter variable names should be avoided except in for() loops.
 
-Asterisks indicating pointers belong with the variable, e.g., NSString *text not NSString* text orNSString * text, except in the case of constants.
+* Asterisks indicating pointers belong with the variable, e.g., NSString *text not NSString* text orNSString * text, except in the case of constants.
 
-Private properties should be used in place of instance variables whenever possible. Although using instance variables is a valid way of doing things, by agreeing to prefer properties our code will be more consistent.
+* Private properties should be used in place of instance variables whenever possible. Although using instance variables is a valid way of doing things, by agreeing to prefer properties our code will be more consistent.
 
-Preferred - 
+Preferred -
 
+``` objective-c
 @interface RWTTutorial : NSObject
 
 @property (strong, nonatomic) NSString *tutorialName;
 
 @end
+```
 
+``` objective-c
 Not Preferred -
 
 @interface RWTTutorial : NSObject {
   NSString *tutorialName;
 }
+````
 
 Example -
 
+``` objective-c
 NSString *title: It is reasonable to assume a “title” is a string.
 NSString *titleHTML: This indicates a title that may contain HTML which needs parsing for display. “HTML” is needed for a programmer to use this variable effectively.
 NSAttributedString *titleAttributedString: A title, already formatted for display.AttributedString hints that this value is not just a vanilla title, and adding it could be a reasonable choice depending on context.
@@ -441,11 +454,15 @@ NSDate *now: No further clarification is needed.
 NSDate *lastModifiedDate: Simply lastModified can be ambiguous; depending on context, one could reasonably assume it is one of a few different types.
 NSURL *URL vs. NSString *URLString: In situations when a value can reasonably be represented by different classes, it is often useful to disambiguate in the variable’s name.
 NSString *releaseDateString: Another example where a value could be represented by another class, and the name can help disambiguate.
-Private Properties
+```
 
-Private properties should be declared in class extensions (anonymous categories) in the implementation file of a class
+## 1.13. Private Properties
+
+* Private properties should be declared in class extensions (anonymous categories) in the implementation file of a class
 
 For example:
+
+``` objective-c
 @interface ZBTAdvertisement ()
 
 @property (nonatomic, strong) GADBannerView *googleAdView;
@@ -453,78 +470,111 @@ For example:
 @property (nonatomic, strong) UIWebView *adXWebView;
 
 @end
-Literals
-NSString, NSDictionary, NSArray, and NSNumber literals should be used whenever creating immutable instances of those objects. Pay special care that nil values not be passed into NSArrayand NSDictionary literals, as this will cause a crash.
+```
+
+## 1.14. Literals
+
+* NSString, NSDictionary, NSArray, and NSNumber literals should be used whenever creating immutable instances of those objects. Pay special care that nil values not be passed into NSArrayand NSDictionary literals, as this will cause a crash.
+
 Preferred:
+
+``` objective-c 
 NSArray *names = @[@"Brian", @"Matt", @"Chris", @"Alex", @"Steve", @"Paul"];
 NSDictionary *productManagers = @{@"iPhone": @"Kate", @"iPad": @"Kamal", @"Mobile Web": @"Bill"};
 NSNumber *shouldUseLiterals = @YES;
 NSNumber *buildingStreetNumber = @10018;
+```
 
 Not Preferred:
+
+``` objective-c
 NSArray *names = [NSArray arrayWithObjects:@"Brian", @"Matt", @"Chris", @"Alex", @"Steve", @"Paul", nil];
 NSDictionary *productManagers = [NSDictionary dictionaryWithObjectsAndKeys: @"Kate", @"iPhone", @"Kamal", @"iPad", @"Bill", @"Mobile Web", nil];
 NSNumber *shouldUseLiterals = [NSNumber numberWithBool:YES];
 NSNumber *buildingStreetNumber = [NSNumber numberWithInteger:10018];
+```
+## 1.15. Constants
 
-Constants
-Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as static constants and not #defines unless explicitly being used as a macro.
+* Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as static constants and not #defines unless explicitly being used as a macro.
+
 Preferred:
+
+``` objective-c
 static NSString * const ZBTAboutViewControllerCompanyName = @"Zapbuild";
 
 static CGFloat const ZBTImageThumbnailHeight = 50.0;
-
+```
 
 Not Preferred:
+
+``` objective-c
 #define CompanyName @"Zapbuild"
 
 #define thumbnailHeight 2
+```
 
 
 
 
-Enumerated Types & Bitmasks
+## 1.16. Enumerated Types & Bitmasks
 
-Use NS_Enum only and not enum or older k-style constant definitions
-Use NS_Options only for bitmasks
-Include Prefix for the Enums and the name of enum should be present in the enum type values
+* Use NS_Enum only and not enum or older k-style constant definitions
+* Use NS_Options only for bitmasks
+* Include Prefix for the Enums and the name of enum should be present in the enum type values
+
 For Example:
+
+``` objective-c
 typedef NS_ENUM(NSInteger, ZBTLeftMenuTopItemType) {
   ZBTLeftMenuTopItemMain,
   ZBTLeftMenuTopItemShows,
   ZBTLeftMenuTopItemSchedule
 };
+```
+
 Example:
+
+``` objective-c
 typedef NS_OPTIONS(NSUInteger, NYTAdCategory) {
   NYTAdCategoryAutos      = 1 << 0,
   NYTAdCategoryJobs       = 1 << 1,
   NYTAdCategoryRealState  = 1 << 2,
   NYTAdCategoryTechnology = 1 << 3
 };
+```
 
 
 
 
-Booleans
 
-Objective-C uses YES and NO. Therefore true and false should only be used for CoreFoundation, C or C++ code.
+## 1.17 Booleans
+
+* Objective-C uses YES and NO. Therefore true and false should only be used for CoreFoundation, C or C++ code.
 Since nil resolves to NO it is unnecessary to compare it in conditions.
-Never compare something directly to YES, because YES is defined to 1 and a BOOL can be up to 8 bits.
-If the name of a BOOL property is expressed as an adjective, the property can omit the “is” prefix but specifies the conventional name for the get accessor, for example:
+* Never compare something directly to YES, because YES is defined to 1 and a BOOL can be up to 8 bits.
+* If the name of a BOOL property is expressed as an adjective, the property can omit the “is” prefix but specifies the conventional name for the get accessor, for example:
+
 Preferred:
+
+``` objective-c
 if (someObject) {}
 if (![anotherObject boolValue]) {}
-
+```
 Not Preferred:
+
+``` objective-c
 if (someObject == nil) {}
 if ([anotherObject boolValue] == NO) {}
 if (isAwesome == YES) {} // Never do this.
 if (isAwesome == true) {} // Never do this.
+```
 
+## 1.18. Golden Path
+* When coding with conditionals, the left hand margin of the code should be the "golden" or "happy" path. That is, don't nest if statements. Multiple return statements are OK.
 
-Golden Path
-When coding with conditionals, the left hand margin of the code should be the "golden" or "happy" path. That is, don't nest if statements. Multiple return statements are OK.
 Preferred:
+
+``` objective-c
 - (void)someMethod {
   if (![someOther boolValue]) {
     return;
@@ -532,60 +582,83 @@ Preferred:
 
   //Do something important
 }
+```
 
 Not Preferred:
+
+``` objective-c
 - (void)someMethod {
   if ([someOther boolValue]) {
     //Do something important
   }
 }
+```
 
 
-Error Handling
-When methods return an error parameter by reference, switch on the returned value, not the error variable.
+## 1.19. Error Handling
+* When methods return an error parameter by reference, switch on the returned value, not the error variable.
+
 For example:
+
+``` objective-c
 NSError *error;
 if (![self trySomethingWithError:&error]) {
     // Handle Error
 }
+```
+
 Not:
+
+``` objective-c
 NSError *error;
 [self trySomethingWithError:&error];
 if (error) {
     // Handle Error
 }
+```
 
-Some of Apple’s APIs write garbage values to the error parameter (if non-NULL) in successful cases, so switching on the error can cause false negatives (and subsequently crash).
+* Some of Apple’s APIs write garbage values to the error parameter (if non-NULL) in successful cases, so switching on the error can cause false negatives (and subsequently crash).
 
 
+## 1.20. CGRect Functions
 
+* When accessing the x, y, width, or height of a CGRect, always use the CGGeometry functionsinstead of direct struct member access. From Apple's CGGeometry reference:
+* All functions described in this reference that take CGRect data structures as inputs implicitly standardize those rectangles before calculating their results. For this reason, your applications should avoid directly reading and writing the data stored in the CGRect data structure. Instead, use the functions described here to manipulate rectangles and to retrieve their characteristics.
 
-CGRect Functions
-When accessing the x, y, width, or height of a CGRect, always use the CGGeometry functionsinstead of direct struct member access. From Apple's CGGeometry reference:
-All functions described in this reference that take CGRect data structures as inputs implicitly standardize those rectangles before calculating their results. For this reason, your applications should avoid directly reading and writing the data stored in the CGRect data structure. Instead, use the functions described here to manipulate rectangles and to retrieve their characteristics.
-Preferred:
+Preferred :
+
+``` objective-c
 CGRect frame = self.view.frame;
 
 CGFloat x = CGRectGetMinX(frame);
 CGFloat y = CGRectGetMinY(frame);
 CGFloat width = CGRectGetWidth(frame);
 CGFloat height = CGRectGetHeight(frame);
+```
 
-Not Preferred:
+Not Preferred :
+
+``` objective-c
 CGRect frame = self.view.frame;
 
 CGFloat x = frame.origin.x;
 CGFloat y = frame.origin.y;
 CGFloat width = frame.size.width;
 CGFloat height = frame.size.height;
+```
 
-
-Categories
-Categories may be used to concisely segment functionality and should be named to describe that functionality.
+## 1.21. Categories 
+* Categories may be used to concisely segment functionality and should be named to describe that functionality.
 
 For example:
+
+``` objective-c
 @interface UIViewController (NYTMediaPlaying)
 @interface NSString (NSStringEncodingDetection)
+```
+
+``` objective-c
 Not:
 @interface NYTAdvertisement (private)
 @interface NSString (NYTAdditions)
+```
