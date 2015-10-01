@@ -657,8 +657,9 @@ For example:
 @interface NSString (NSStringEncodingDetection)
 ```
 
-``` objective-c
 Not:
+
+``` objective-c
 @interface NYTAdvertisement (private)
 @interface NSString (NYTAdditions)
 ```
