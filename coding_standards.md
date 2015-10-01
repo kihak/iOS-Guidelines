@@ -333,7 +333,7 @@ Example :-
 - (void)setNoun:(type)aNoun;
 ```
 
-* Example :-
+Example :-
 ```	
 	- (NSString *)title;
 	- (void)setTitle:(NSString *)aTitle;
@@ -345,7 +345,7 @@ Example :-
 	- (void) setAdjective:(BOOL)flag;
 ```
 
-* Example :-
+Example :-
 ```
 	- (BOOL) isEditable;
 	- (void) setEditable:(BOOL)flag;
@@ -357,7 +357,7 @@ Example :-
 	- (void) setVerbObject:(type)flag;
 ```
 
-* Example :-
+Example :-
 ```	
   - (BOOL)showsAlpha;
 	- (void)setShowsAlpha:(BOOL)flag;
